@@ -1,6 +1,5 @@
 package io.github.dudupuci.msavaliadorcredito.application;
 
-import feign.FeignException;
 import io.github.dudupuci.msavaliadorcredito.application.dtos.DadosAvaliacaoRequest;
 import io.github.dudupuci.msavaliadorcredito.application.services.AvaliadorCreditoService;
 import io.github.dudupuci.msavaliadorcredito.domain.exception.DadosClienteNotFoundException;

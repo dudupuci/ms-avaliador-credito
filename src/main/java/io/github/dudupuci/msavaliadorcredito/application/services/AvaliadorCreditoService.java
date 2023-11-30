@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,10 +53,11 @@ public class AvaliadorCreditoService implements AvaliadorCreditoServiceInterface
             ResponseEntity<List<CartaoDtoResponse>> cartoesRendaAte = this.cartoesFeignClient.getCartoesRendaAte(request.getRenda());
 
             List<CartaoDtoResponse> cartoesFiltrados = cartoesRendaAte.getBody();
+            assert cartoesFiltrados != null;
             List<CartaoAprovadoDtoResponse> cartoesAprovados = cartoesFiltrados.stream().map(cartao -> {
 
                 BigDecimal limite = cartao.getLimite();
-                Integer idade = dadosClienteByCpf.getBody().getIdade();
+                Integer idade = Objects.requireNonNull(dadosClienteByCpf.getBody()).getIdade();
                 BigDecimal limiteAprovado = calcularLimiteAprovado(limite, idade);
 
                 CartaoAprovadoDtoResponse cartaoAprovado = new CartaoAprovadoDtoResponse();
